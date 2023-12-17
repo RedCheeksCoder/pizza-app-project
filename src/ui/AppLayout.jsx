@@ -1,20 +1,24 @@
-import { Outlet, useNavigation } from "react-router-dom";
-import CartOverview from "../features/cart/CartOverview";
-import Header from "./Header";
-import Loader from "./Loader";
-import SearchOrder from "../features/order/SearchOrder";
+import Header from './Header';
+import Loader from './Loader';
+import CartOverview from '../features/cart/CartOverview';
+import { Outlet, useNavigation } from 'react-router-dom';
 
 function AppLayout() {
   const navigation = useNavigation();
-  const isLoading = navigation.state === "loading"; //global to navigation na to kaya usefull
+  const isLoading = navigation.state === 'loading';
+
   return (
-    <div className="layout">
-      {isLoading && <Loader />} {/* If ever na may nag lo-loading sa buong app since global yung navigation, mag aappear yung loader */}
+    <div className="grid h-screen grid-rows-[auto_1fr_auto]">
+      {isLoading && <Loader />}
+
       <Header />
-      <SearchOrder />
-      <main>
-        <Outlet /> {/* Outlet ng mga child router to */}
-      </main>
+
+      <div className="overflow-scroll">
+        <main className="mx-auto max-w-3xl">
+          <Outlet />
+        </main>
+      </div>
+
       <CartOverview />
     </div>
   );
