@@ -1,11 +1,23 @@
 import { useState } from 'react';
 import Button from '../../ui/Button';
+import { useDispatch } from 'react-redux';
+import { updateName } from './userSlice';
+import { useNavigate } from 'react-router-dom';
 
 function CreateUser() {
   const [username, setUsername] = useState('');
 
+  //use dispatch muna. para magamit yung dispatch.
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
+    //Guard clause
+    if (!username) return;
+
+    //dispatch send the user name(local state) using the updateName (action creator) para ma update yung store.
+    dispatch(updateName(username));
+    navigate('/menu');
   }
 
   return (
